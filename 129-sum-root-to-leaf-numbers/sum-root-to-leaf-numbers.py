@@ -4,6 +4,7 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
+from collections import deque
 class Solution(object):
     def sumNumbers(self, root):
 
@@ -18,16 +19,16 @@ class Solution(object):
 
             temp += str(node.val)
 
-            # If this is a leaf, save the number
-            if not node.left and not node.right:
-                queue.append(temp)
-                return
+            
 
             add(node.left, temp, queue)
+            
             add(node.right, temp, queue)
 
-        add(root, temp, queue)
+            if not node.left and not node.right:
+                queue.append(temp)
 
+        add(root, temp, queue)
         for i in queue:
             tot += int(i)
 
