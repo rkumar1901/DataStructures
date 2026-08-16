@@ -1,43 +1,33 @@
-from collections import Counter
-
 class Solution(object):
     def reorganizeString(self, s):
-        """
-        :type s: str
-        :rtype: str
-        """
 
-        freq = Counter(s)
+        res = [""] * len(s)
+        dic = {}
+        for i in s:
+            dic[i] = 1 + dic.get(i, 0)
 
-        if max(freq.values()) > (len(s) + 1) // 2:
+        if max(dic.values()) > (len(s) + 1) // 2:
             return ""
+ 
+        sorted_chars = sorted(dic.keys(), key=lambda x: dic[x], reverse=True)
 
-        heap = [(-count, char) for char, count in freq.items()]
-        heapq.heapify(heap)
+        i = 0
+        for ch in sorted_chars:
 
-        result = ""
+            while dic[ch] > 0:
+                if i >= len(s):
+                    i = 1
+                
+                res[i] = ch
+                dic[ch] -= 1
+                i += 2
 
-        prev_count = 0
-        prev_char = None
+        return "".join(res)
+                
 
-        while heap:
 
-            count, char = heapq.heappop(heap)
 
-            # Put previous character back into heap because it is now safe to use again
-            if prev_count < 0:
-                heapq.heappush(heap, (prev_count, prev_char))
 
-            result += char
-            count += 1
 
-            # Hold this character out of the heap
-            prev_count = count
-            prev_char = char
 
-        # If something is left over, impossible
-        if prev_count < 0:
-            return ""
-
-        return result
         
