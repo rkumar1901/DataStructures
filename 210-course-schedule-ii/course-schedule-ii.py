@@ -1,38 +1,36 @@
 from collections import defaultdict
-
-
 class Solution:
 
   def findOrder(self, numCourses, prerequisites):
     preMap = defaultdict(list)
-    visited = set()  # Active DFS path (cycle detection)
-    completed = set()  # Fully processed nodes
+    visited = set()  
+    completed = set()  
     result = []
 
-    # Map course -> list of its prerequisites
     for crs, preq in prerequisites:
-      preMap[crs].append(preq)
+        preMap[preq].append(crs)
 
     def dfs(crs):
-      if crs in visited:
-        return False  # Cycle detected
-      if crs in completed:
-        return True  # Already added to result
+        if crs in visited:
+            return False 
+        if crs in completed:
+            return True 
 
-      visited.add(crs)
+        visited.add(crs)
 
-      for adj_crs in preMap[crs]:
-        if not dfs(adj_crs):
-          return False
+        for adj_crs in preMap[crs]:
+            if not dfs(adj_crs):
+                return False
 
-      visited.remove(crs)
-      completed.add(crs)
-
-      result.append(crs)  # Added AFTER all prerequisites are added
-      return True
+        visited.remove(crs)
+        
+        completed.add(crs)
+        result.append(crs)
+        
+        return True
 
     for crs in range(numCourses):
-      if not dfs(crs):
-        return []
+        if not dfs(crs):
+            return []
 
-    return result  # Already in correct order (no reversal needed)
+    return result[::-1]
