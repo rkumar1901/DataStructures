@@ -1,46 +1,50 @@
 class Solution:
     def solveSudoku(self, board: List[List[str]]) -> None:
-        """
-        Do not return anything, modify board in-place instead.
-        """
-        lines = [set() for _ in range(9)]
-        cols = [set() for _ in range(9)]
-        box = [[set() for _ in range(3)] for _ in range(3)]
-        spaces = []
-        # 1 find which postion we need fill(record in spaces)
-        # 2 prepare lines, cols, box set array
-        for i in range(9):
-            for j in range(9):
-                x = board[i][j]
-                if x == ".":
-                    spaces.append([i, j])
-                else:
-                    lines[i].add(x)
-                    cols[j].add(x)
-                    box[i//3][j//3].add(x)
 
-        def backTrack(pos):
+        rows = [set() for r in range(9)]
+        cols = [set() for c in range(9)]
+        boxes = [[set() for _ in range(3)] for _ in range(3)]
+        spaces = []
+
+        for r in range(9):
+            for c in range(9):
+
+                if board[r][c] == ".":
+                    spaces.append((r, c))
+                else:
+                    rows[r].add(board[r][c])
+                    cols[c].add(board[r][c])
+                    boxes[r//3][c//3].add(board[r][c])
+
+
+        def backtrack(pos):
             if pos == len(spaces):
                 return True
-            # when we complete the sudoku
 
             i, j = spaces[pos]
-            for n in ("123456789"):
-                if  n not in lines[i] and n not in cols[j] and n not in box[i//3][j//3]:
-                    board[i][j] = n
-                    lines[i].add(n)
-                    cols[j].add(n)
-                    box[i//3][j//3].add(n)
+            
+            for num in "123456789":
 
-                    if backTrack(pos + 1):
+                if num not in rows[i] and num not in cols[j] and num not in boxes[i//3][j//3]:
+                    board[i][j] = num
+                    rows[i].add(num)
+                    cols[j].add(num)
+                    boxes[i//3][j//3].add(num)
+
+                    if backtrack(pos + 1):
                         return True
 
-                    board[i][j] = "." 
-                    lines[i].remove(n)
-                    cols[j].remove(n)
-                    box[i//3][j//3].remove(n)
-            # here we must add true, fasle return to stop the backtrack when we find one valid solution
-            # this is a important difference between n queens, here only need one solution but n queens need all solution
+                    board[i][j] = "."
+                    rows[i].remove(num)
+                    cols[j].remove(num)
+                    boxes[i//3][j//3].remove(num)
+
             return False
-        
-        backTrack(0)    
+
+        backtrack(0)
+
+                    
+
+
+
+
