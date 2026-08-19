@@ -20,8 +20,9 @@ class LRUCache:
             self.dic[key] = value
             return
 
-        if self.capacity > len(self.dic):
+        if self.capacity > 0:
             self.dic[key] = value
+            self.capacity -= 1
 
         else:
             removeKey = next(iter(self.dic))
