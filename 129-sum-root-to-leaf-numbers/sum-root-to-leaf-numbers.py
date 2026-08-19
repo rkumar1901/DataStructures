@@ -8,8 +8,7 @@ from collections import deque
 class Solution(object):
     def sumNumbers(self, root):
 
-        self.queue = []
-        tot = 0
+        self.tot = 0
 
         def dfs(node, temp):
             
@@ -19,7 +18,7 @@ class Solution(object):
             temp += str(node.val)
 
             if not node.left and not node.right:
-                self.queue.append(temp)
+                self.tot += int(temp)
                 return
 
             dfs(node.left, temp)
@@ -28,9 +27,7 @@ class Solution(object):
 
         dfs(root, "")
 
-        for i in self.queue:
-            tot += int(i) 
-        return tot
+        return self.tot
 
         
         
