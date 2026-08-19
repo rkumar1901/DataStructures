@@ -8,30 +8,28 @@ from collections import deque
 class Solution(object):
     def sumNumbers(self, root):
 
+        self.queue = []
         tot = 0
-        temp = ""
-        queue = []
 
-        def add(node, temp, queue):
-
+        def dfs(node, temp):
+            
             if not node:
                 return
 
             temp += str(node.val)
 
-            
-
-            add(node.left, temp, queue)
-            
-            add(node.right, temp, queue)
-
             if not node.left and not node.right:
-                queue.append(temp)
+                self.queue.append(temp)
+                return
 
-        add(root, temp, queue)
-        for i in queue:
-            tot += int(i)
+            dfs(node.left, temp)
+            dfs(node.right, temp)
 
+
+        dfs(root, "")
+
+        for i in self.queue:
+            tot += int(i) 
         return tot
 
         
