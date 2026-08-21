@@ -1,9 +1,12 @@
 class Solution(object):
     def minWindow(self, s, t):
+        
+        if t == "":
+            return "" 
 
         l = 0
         countT, window = {}, {}
-        reslen, res = float('inf'), [-1,-1]
+        reslen, res = float('inf'), ""
 
         for i in t:
             countT[i] = 1 + countT.get(i, 0)
@@ -28,7 +31,6 @@ class Solution(object):
                 
                 l += 1
                 
-
         return "" if reslen == float('inf') else res
 
 
