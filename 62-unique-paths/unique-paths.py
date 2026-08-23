@@ -6,5 +6,5 @@ class Solution:
             for c in range(1, n):
                 dp[c] = dp[c] + dp[c - 1]
 
-        return dp[n - 1]
+        return dp[-1]
         
