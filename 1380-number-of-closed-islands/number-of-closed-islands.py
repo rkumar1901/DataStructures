@@ -5,10 +5,7 @@ class Solution(object):
         cols = len(grid[0])
 
         def dfs(r, c):
-            if r < 0 or r >= rows or c < 0 or c >= cols:
-                return
-
-            if grid[r][c] == 1:
+            if r < 0 or r >= rows or c < 0 or c >= cols or grid[r][c] == 1:
                 return
 
             grid[r][c] = 1
