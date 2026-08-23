@@ -5,7 +5,7 @@ class Solution(object):
         :rtype: int
         """
         
-        self.max_area = 0
+        max_area = 0
         self.area = 0
         rows = len(grid)
         cols = len(grid[0])
@@ -31,7 +31,7 @@ class Solution(object):
                 if grid[r][c] == 1:
                     self.area = 0
                     dfs(r,c)
-                    self.max_area = max(self.area, self.max_area)
+                    max_area = max(self.area, max_area)
                     
 
-        return self.max_area
+        return max_area
