@@ -1,70 +1,51 @@
+from functools import lru_cache
 class Solution:
     def countSteppingNumbers(self, low: str, high: str) -> int:
-
         MOD = 10**9 + 7
 
-        def count(N):
+        def decrement(number: str):
+            """Return number - 1 as a string, or None if number is zero."""
+            if number == "0":
+                return None
 
-            if N < 0:
+            digits = list(number)
+            i = len(digits) - 1
+
+            while digits[i] == "0":
+                digits[i] = "9"
+                i -= 1
+
+            digits[i] = str(int(digits[i]) - 1)
+            result = "".join(digits).lstrip("0")
+            return result or "0"
+
+        def count_at_most(bound: str) -> int:
+            if bound is None:
                 return 0
 
-            s = str(N)
-            n = len(s)
+            digits = list(map(int, bound))
 
-            # dp(pos, prev_digit, tight, started)
-            memo = {}
+            @lru_cache(None)
+            def dp(pos: int, previous: int, tight: bool, started: bool) -> int:
+                if pos == len(digits):
+                    # Exclude the all-leading-zero representation of 0.
+                    return int(started)
 
-            def dp(pos, prev_digit, tight, started):
-
-                if pos == n:
-                    return 1
-
-                key = (pos, prev_digit, tight, started)
-
-                if key in memo:
-                    return memo[key]
-
-                limit = int(s[pos]) if tight else 9
-
+                limit = digits[pos] if tight else 9
                 total = 0
 
                 for digit in range(limit + 1):
+                    next_tight = tight and digit == limit if tight else False
 
-                    new_tight = tight and digit == limit
-
-                    # Still skipping leading zeros
                     if not started and digit == 0:
-                        total += dp(
-                            pos + 1,
-                            -1,
-                            new_tight,
-                            False
-                        )
+                        # Still skipping leading zeroes; no adjacency check yet.
+                        total += dp(pos + 1, 10, next_tight, False)
+                    elif not started or abs(digit - previous) == 1:
+                        total += dp(pos + 1, digit, next_tight, True)
 
-                    else:
+                return total % MOD
 
-                        # First real digit
-                        if not started:
-                            total += dp(
-                                pos + 1,
-                                digit,
-                                new_tight,
-                                True
-                            )
+            return dp(0, 10, True, False)
 
-                        # Next digit must differ by exactly 1
-                        elif abs(digit - prev_digit) == 1:
-                            total += dp(
-                                pos + 1,
-                                digit,
-                                new_tight,
-                                True
-                            )
-
-                memo[key] = total % MOD
-                return memo[key]
-
-            return dp(0, -1, True, False)
-
-        return (count(int(high)) - count(int(low) - 1)) % MOD
-        
+        below_low = decrement(low)
+        return (count_at_most(high) - count_at_most(below_low)) % MOD
