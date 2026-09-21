@@ -1,36 +1,74 @@
-from collections import defaultdict
+from collections import defaultdict, deque
 class Solution:
 
     def canFinish(self, numCourses, prerequisites):
-        preMap = defaultdict(list)
-        visited = set()
-        completed = set()
+        
+        graph = [[] for i in range(numCourses)]
+        preq_count = [0] * numCourses
+        completed = 0
+        queue = deque()
 
-        for preq,crs in prerequisites:
-            preMap[crs].append(preq)
+        for crs, preq in prerequisites:
+            graph[preq].append(crs)
+            preq_count[crs] += 1
 
-        def dfs(crs):
+        for i in range(len(preq_count)):
+            if preq_count[i] == 0:
+                queue.append(i)
 
-            if crs in visited:
-                return False
-            if crs in completed:
-                return True
+        while queue:
 
-            visited.add(crs)
+            crs = queue.popleft()
+            completed += 1
 
-            for adj_crs in preMap[crs]:
-                if not dfs(adj_crs):
-                    return False
-            
-            visited.remove(crs)
-            completed.add(crs)
-            return True
+            for next_crs in graph[crs]:
+                preq_count[next_crs] -= 1
 
-        for crs in range(numCourses):
-            if not dfs(crs):
-                return False
+                if preq_count[next_crs] == 0:
+                    queue.append(next_crs)
 
-        return True
+
+        return completed == numCourses
+
+        
+
+     
+
+
+# BFS SOLUTION:
+# class Solution(object):
+#     def canFinish(self, numCourses, prerequisites):
+
+#         graph = [[] for _ in range(numCourses)]
+#         prereq_count = [0] * numCourses
+
+#         # Build graph
+#         for course, prerequisite in prerequisites:
+#             graph[prerequisite].append(course)
+#             prereq_count[course] += 1
+
+#         # Courses with no prerequisites
+#         queue = deque()
+
+#         for course in range(numCourses):
+#             if prereq_count[course] == 0:
+#                 queue.append(course)
+
+#         completed = 0
+
+#         # BFS
+#         while queue:
+#             course = queue.popleft()
+#             completed += 1
+
+#             # Remove this course as a prerequisite
+#             for next_course in graph[course]:
+#                 prereq_count[next_course] -= 1
+
+#                 if prereq_count[next_course] == 0:
+#                     queue.append(next_course)
+
+#         return completed == numCourses
 
 
         
