@@ -6,7 +6,6 @@ class Solution(object):
             return 0
         
         wordList = set(wordList)
-        visited = {beginWord}
         queue = deque([(beginWord, 1)])
 
         while queue:
@@ -21,13 +20,11 @@ class Solution(object):
 
                     newWord = curr[:i] + j + curr[i+1:]
                     
-                    if newWord in visited:
-                        continue
                     if newWord not in wordList:
                         continue
-
+                    
                     queue.append([newWord, length + 1])
-                    visited.add(newWord)
+                    wordList.remove(newWord)
 
         return 0
 
