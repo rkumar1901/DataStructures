@@ -27,7 +27,7 @@ class Solution(object):
 
             # Add it to result
             curr.next = node
-            curr = curr.next
+            curr = curr.next 
 
             # Add next node from the same list
             if node.next:
