@@ -64,20 +64,6 @@ class LRUCache:
             self.remove(del_node)
             del self.dic[del_node.key]
 
-            
-
-
-
-
-
-
-
-
-        
-
-
-        
-
 
 # Your LRUCache object will be instantiated and called as such:
 # obj = LRUCache(capacity)
