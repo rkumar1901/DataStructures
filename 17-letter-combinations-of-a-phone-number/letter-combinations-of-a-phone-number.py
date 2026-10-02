@@ -1,12 +1,10 @@
-class Solution(object):
-    def letterCombinations(self, digits):
-        """
-        :type digits: str
-        :rtype: List[str]
-        """
+class Solution:
+    def letterCombinations(self, digits: str) -> List[str]:
 
         if not digits:
             return []
+
+        res, temp = [], []
 
         phone = {
             "2": "abc",
@@ -19,21 +17,21 @@ class Solution(object):
             "9": "wxyz"
         }
 
-        res = []
+        def tenta(index, temp):
 
-        def backtrack(index, current):
-
-            # We used one letter for every digit
-            if index == len(digits):
-                res.append(current)
+            if len(temp) == len(digits):
+                res.append("".join(temp))
                 return
 
             letters = phone[digits[index]]
 
             for letter in letters:
-                backtrack(index + 1, current + letter)
 
-        backtrack(0, "")
+                temp.append(letter)
+                tenta(index + 1, temp)
+                temp.pop()
+
+        tenta(0, temp)
 
         return res
         
