@@ -10,8 +10,11 @@ class Solution(object):
             if ch.isdigit():
                 num = num * 10 + int(ch)
 
+            elif ch.isalpha():
+                current += ch
+
             elif ch == "[":
-                stack.append((current, num))
+                stack.append((current,num))
                 current = ""
                 num = 0
 
@@ -19,8 +22,6 @@ class Solution(object):
                 prev_string, repeat = stack.pop()
                 current = prev_string + current * repeat
 
-            else:
-                current += ch
+        return "".join(current)
 
-        return current
         
