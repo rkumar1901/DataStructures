@@ -1,21 +1,27 @@
-class Solution(object):
-    def maxProduct(self, nums):
-        left_right = 1
-        right_left = 1
-        max_p = float('-inf')
-        length = len(nums)
+class Solution:
+    def maxProduct(self, nums: list[int]) -> int:
 
-        for i in range(length):
+        if len(nums) == 1:
+            return nums[0]
 
-            left_right *= nums[i]
-            right_left *= nums[length - i - 1]
+        left_to_right = 1
+        right_to_left = 1
+        res = 0
 
-            max_p = max(left_right, right_left, max_p)
+        for i in range(len(nums)):
 
-            if not left_right:
-                left_right = 1
-            if not right_left:
-                right_left = 1
+            left_to_right *= nums[i]
+            right_to_left *= nums[len(nums) - i - 1]
 
-        return max_p
+            res = max(left_to_right, right_to_left, res)
+
+            if not left_to_right:
+                left_to_right = 1
+            if not right_to_left:
+                right_to_left = 1
+
+        return res
+
+
+
         
