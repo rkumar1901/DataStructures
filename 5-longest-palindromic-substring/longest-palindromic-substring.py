@@ -14,7 +14,7 @@ class Solution(object):
             
             return s[l+1:r]
 
-        for i in range(len(s)-1):
+        for i in range(len(s)):
 
             ans1 = expand(i, i, "")
             ans2 = expand(i, i+1, "")
