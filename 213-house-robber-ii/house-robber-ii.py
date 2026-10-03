@@ -10,8 +10,6 @@ class Solution(object):
 
             if n == 1:
                 return nums[0]
-            if n == 0:
-                return 0
 
             dp = [0] * len(nums)
 
