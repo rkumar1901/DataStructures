@@ -1,21 +1,22 @@
+from collections import deque
 class Solution:
     def wordBreak(self, s: str, wordDict: list[str]) -> bool:
-
-        n = len(s)
-        dp = [False] * (n+1)
-        dp[0] = True
         
-        wordDict = set(wordDict)
+        queue = deque([0])
+        visited = {0}  
 
-        for i in range(1, n+1):
+        while queue:
 
-            for j in range(i):
+            start = queue.popleft()
 
-                if dp[j] and s[j:i] in wordDict:
-                    dp[i] = True
-                    break
+            if start == len(s):
+                return True
 
-        return dp[n]
+            for end in range(start +1, len(s)+ 1):
 
+                if end not in visited and s[start:end] in wordDict:
+                    queue.append(end)
+                    visited.add(end)
 
+        return False 
         
