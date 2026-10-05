@@ -1,22 +1,18 @@
-class Solution(object):
-    def maxSubArray(self, nums):
+class Solution:
+    def maxSubArray(self, nums: list[int]) -> int:
 
-        if len(nums) == 1:
-            return nums[0]
+        res = float('-inf')
+        temp = 0
 
-        max_val = float('-inf')
-        sub = 0
+        for num in nums:
 
-        for i in nums:
+            if temp < 0:
+                temp = 0
 
-            if sub < 0:
-                sub = 0
+            temp += num
 
-            sub += i
-            max_val = max(max_val, sub)
+            res = max(temp, res)
 
-        return max_val
-
-
+        return res
 
         
