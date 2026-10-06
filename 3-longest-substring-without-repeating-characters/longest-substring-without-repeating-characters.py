@@ -6,22 +6,25 @@ class Solution(object):
         """
 
         l = 0
-        res = 0
+        r = 0
         temp = set()
+        res = 0
 
         if len(s) == 0 or len(s) == 1:
             return len(s)
 
-        for r in range(len(s)):
-            
+        while r < len(s):
+
             while s[r] in temp:
                 temp.remove(s[l])
                 l += 1
 
             temp.add(s[r])
-            res = max(res, len(temp))
+            res = max(len(temp), res)
+            r += 1
 
         return res
+
 
 
 
