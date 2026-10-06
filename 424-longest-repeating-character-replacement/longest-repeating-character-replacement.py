@@ -1,9 +1,9 @@
 class Solution(object):
     def characterReplacement(self, s, k):
 
-        res = 0
         l = 0
         dic = {}
+        res = 0
 
         for r in range(len(s)):
 
@@ -13,9 +13,13 @@ class Solution(object):
                 dic[s[l]] -= 1
                 l += 1
 
-            res = max(res, r - l + 1)
+            res = max(res, (r - l + 1))
 
         return res
+
+
+
+
 
 
 
