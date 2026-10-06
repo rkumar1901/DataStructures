@@ -1,11 +1,8 @@
 class Solution(object):
     def maxProfit(self, prices):
-        
-        if len(prices) == 1:
-            return 0
 
         l = 0
-        r = 1
+        r = 0
         res = 0
 
         while r < len(prices):
