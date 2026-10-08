@@ -17,7 +17,7 @@ class TimeMap:
 
         while l <= r:
 
-            mid = (l + r + 1) // 2
+            mid = (l + r) // 2
 
             if values[mid][0] <= timestamp:
                 l = mid + 1
