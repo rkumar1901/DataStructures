@@ -1,22 +1,36 @@
 class Solution:
     def largestRectangleArea(self, heights):
         maxArea = 0
-        stack = []  # pair: (index, height)
+        stack = [] 
 
-        for i, h in enumerate(heights):
-            start = i
+        for r in range(len(heights)):
 
-            while stack and stack[-1][1] > h:
-                index, height = stack.pop()
+            while stack and heights[stack[-1]] > heights[r]:
 
-                maxArea = max(maxArea, height * (i - index))
+                h = heights[stack.pop()]
 
-                start = index
+                if stack:
+                    width = r - stack[-1] - 1
+                else:
+                    width = r
 
-            stack.append((start, h))
+                maxArea = max(maxArea, h * width)
 
-        for i, h in stack:
-            maxArea = max(maxArea, h * (len(heights) - i))
+            stack.append(r)
+
+        # remaining stack if present will be in montonic increasing stack
+        while stack:
+
+            h = heights[stack.pop()]
+
+            if stack:
+                width = len(heights) - stack[-1] - 1
+            else:
+                width = len(heights)
+
+            maxArea = max(maxArea, h * width)
 
         return maxArea
+
+        
         
