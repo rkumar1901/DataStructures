@@ -2,16 +2,26 @@ class Solution:
     def isValid(self, s: str) -> bool:
 
         dic = {')':'(', '}':'{', ']':'['}
+        res = []
 
-        st = []
+        for r in s:
 
-        for i in s:
-
-            if i in dic:
-                if not st or dic[i] != st.pop():
+            if r in dic and res:
+                ans = res.pop()
+                if dic[r] != ans:
                     return False
-            else:
-                st.append(i)
+                else:
+                    continue
+            elif r in dic and not res:
+                return False
 
-        return len(st) == 0
+            res.append(r)
+
+        return False if res else True
+
+
+
+
+
+
         
