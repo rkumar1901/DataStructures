@@ -6,16 +6,12 @@ class Solution:
 
         for r in s:
 
-            if r in dic and res:
-                ans = res.pop()
-                if dic[r] != ans:
-                    return False
-                else:
-                    continue
-            elif r in dic and not res:
-                return False
+            if r in dic:
 
-            res.append(r)
+                if not res or dic[r] != res.pop():
+                    return False
+            else:
+                res.append(r)
 
         return False if res else True
 
