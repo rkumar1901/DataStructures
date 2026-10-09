@@ -1,20 +1,21 @@
 class Solution:
     def canSeePersonsCount(self, heights: List[int]) -> List[int]:
 
-        n = len(heights)
-        res = [0] * n
-        stack = []
+        res = [0] * len(heights)
+        temp = []
 
-        for i in range(n):
+        for r in range(len(heights)):
 
-            while stack and heights[stack[-1]] < heights[i]:
-                j = stack.pop()
+            while temp and heights[temp[-1]] < heights[r]:
+                j = temp.pop()
                 res[j] += 1
 
-            if stack:
-                res[stack[-1]] += 1
+            if temp:
+                res[temp[-1]] += 1
 
-            stack.append(i) 
+            temp.append(r)
 
         return res
-        
+
+
+
