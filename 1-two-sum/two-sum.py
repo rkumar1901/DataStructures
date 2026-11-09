@@ -2,11 +2,12 @@ class Solution(object):
     def twoSum(self, nums, target):
 
         dic = {}
-        
-        for i in range(len(nums)):
 
-            if target - nums[i] in dic:
-                return [dic[target - nums[i]], i]
+        for idx,num in enumerate(nums):
 
-            dic[nums[i]] = i
+            if target - num in dic:
+                return [idx, dic[target-num]]
+
+            dic[num] = idx
+
         
