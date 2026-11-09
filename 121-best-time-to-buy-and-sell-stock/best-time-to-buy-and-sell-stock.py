@@ -7,12 +7,14 @@ class Solution(object):
 
         while r < len(prices):
 
-            res = max(res, prices[r] - prices[l])
-
-            if prices[r] < prices[l]:
+            if prices[r] <= prices[l]:
                 l = r
 
+            else:
+                res = max(res, prices[r] - prices[l])
+            
             r += 1
 
         return res
-        
+
+              
