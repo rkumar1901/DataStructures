@@ -3,20 +3,20 @@ class Solution:
 
         l = 1
         r = max(piles)
-        tot = sum(piles)
+        
 
         while l < r:
 
             mid = (l + r) // 2
-            hours = 0
+            hour = 0
 
             for p in piles:
-                hours += math.ceil(p / mid)
+                hour += math.ceil(p / mid)
 
-            if hours > h:
+            if hour > h:
                 l = mid + 1
+
             else:
-                r = mid 
-        
-        return l 
-        
+                r = mid
+
+        return l  
