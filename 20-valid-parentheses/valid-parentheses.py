@@ -11,12 +11,12 @@ class Solution(object):
 
         for ch in s:
 
-            if temp and ch in dic:
+            if temp and ch in dic:         
                 
-                if dic[ch] == temp[-1]:
+                if dic[ch] == temp[-1]: 
                     temp.pop()
                     continue
-                else: 
+                else:
                     return False
 
             temp.append(ch)
