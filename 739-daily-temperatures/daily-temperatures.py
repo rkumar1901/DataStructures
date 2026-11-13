@@ -1,18 +1,18 @@
-class Solution:
-    def dailyTemperatures(self, temperatures: list[int]) -> list[int]:
-        
+class Solution(object):
+    def dailyTemperatures(self, temperatures):
+
         res = [0] * len(temperatures)
+
         temp = []
 
         for r in range(len(temperatures)):
 
-            while temp and temperatures[temp[-1]] < temperatures[r]:
-                j = temp.pop()
-                res[j] += r - j 
+            while temp and temperatures[r] > temperatures[temp[-1]]:
+                x = temp.pop()
+                res[x] = r - x
 
             temp.append(r)
 
-        return res 
-
-
+        return res    
+                
 
