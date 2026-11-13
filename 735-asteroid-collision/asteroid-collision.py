@@ -1,26 +1,28 @@
 class Solution:
     def asteroidCollision(self, asteroids: list[int]) -> list[int]:
         
-        res = []
+        temp = []
+        
+
         for r in range(len(asteroids)):
-            append = True
+            flag = True
 
-            while res and res[-1] > 0 and asteroids[r] < 0:
-
-                if abs(res[-1]) < abs(asteroids[r]):
-                    res.pop()
-
-                elif  abs(res[-1]) == abs(asteroids[r]):
-                    res.pop()
-                    append=False
+            while temp and temp[-1] > 0 and asteroids[r] < 0:
+                
+                if temp[-1] > abs(asteroids[r]):
+                    flag = False
                     break
+
+                elif temp[-1] < abs(asteroids[r]):
+                    temp.pop()
 
                 else:
-                    append = False
+                    flag = False
+                    temp.pop()
                     break
 
-            if append:
-                res.append(asteroids[r])
+            if flag:
+                temp.append(asteroids[r])
 
-        return res
+        return temp
         
