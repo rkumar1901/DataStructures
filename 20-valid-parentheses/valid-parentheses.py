@@ -1,23 +1,26 @@
-class Solution:
-    def isValid(self, s: str) -> bool:
+class Solution(object):
+    def isValid(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
 
-        dic = {')':'(', '}':'{', ']':'['}
-        res = []
+        dic = {"}": "{", ")": "(", "]":"["}
 
-        for r in s:
+        temp = []
 
-            if r in dic:
+        for ch in s:
 
-                if not res or dic[r] != res.pop():
+            if temp and ch in dic:
+                
+                if dic[ch] == temp[-1]:
+                    temp.pop()
+                    continue
+                else: 
                     return False
-            else:
-                res.append(r)
 
-        return False if res else True
+            temp.append(ch)
 
-
-
-
-
+        return True if not temp else False
 
         
