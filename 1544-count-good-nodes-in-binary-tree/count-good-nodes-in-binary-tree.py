@@ -12,7 +12,7 @@ class Solution(object):
         def find(node, max_so_far):
             
             if not node:
-                return 0
+                return
 
             if node.val >= max_so_far:
                 self.good += 1
